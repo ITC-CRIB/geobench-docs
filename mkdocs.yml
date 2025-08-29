@@ -1,0 +1,34 @@
+site_name: GeoBench Documentation
+site_url: https://github.com/ITC-CRIB/geobench
+repo_url: https://github.com/ITC-CRIB/geobench
+site_author: ITC-CRIB
+site_description: Documentation for GeoBench, a tool for benchmarking geospatial software and processing workflows.
+
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - python
+    - bash
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Getting Started: getting-started.md
+  - Creating Scenarios: creating-scenarios.md
+  - Execution Types: execution-types.md
+  - Configuration Options: configuration-options.md
+  - Analyzing Results: analyzing-results.md
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+plugins:
+  - search
