@@ -14,15 +14,16 @@ Before installing GeoBench, ensure you have the following:
 
 ### Method 1: Using pip
 
-You can install GeoBench directly from the repository using pip:
+You can install GeoBench directly from GitHub using pip:
 
 ```bash
-# Clone the repository
+# Install directly from GitHub (recommended)
+pip install --upgrade git+https://github.com/ITC-CRIB/geobench.git
+
+# Or install from a local clone
 git clone https://github.com/ITC-CRIB/geobench
 cd geobench
-
-# Install using pip
-pip install .
+pip install . --upgrade
 ```
 
 ### Method 2: Using uv (Recommended)

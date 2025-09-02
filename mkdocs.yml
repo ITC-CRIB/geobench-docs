@@ -18,6 +18,7 @@ nav:
   - Getting Started: getting-started.md
   - Creating Scenarios: creating-scenarios.md
   - Execution Types: execution-types.md
+  - Jupyter Benchmarking: jupyter-benchmarking.md
   - Configuration Options: configuration-options.md
   - Analyzing Results: analyzing-results.md
 

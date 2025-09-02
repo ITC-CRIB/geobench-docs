@@ -93,11 +93,39 @@ Options:
 - `-c, --clean`: Clean the output directory before running
 - `-d, --debug`: Enable debug logging
 
+## Jupyter Notebook Benchmarking
+
+In addition to YAML-based scenarios, GeoBench supports interactive benchmarking directly within Jupyter notebooks. This is particularly useful for data science workflows and exploratory analysis.
+
+### Quick Example
+
+```python
+from geobench.jupyter import benchmark
+
+@benchmark(name="my-analysis", outdir="results")
+def analyze_data():
+    # Your geospatial analysis code here
+    import time
+    time.sleep(2)  # Simulate processing
+    return "Analysis complete"
+
+# Run the benchmark
+result = analyze_data()
+```
+
+This will automatically:
+- Monitor system resources during execution
+- Generate performance reports
+- Create HTML visualizations
+
+For detailed information about Jupyter benchmarking, see the [Jupyter Benchmarking](jupyter-benchmarking.md) documentation.
+
 ## Next Steps
 
 Now that you're familiar with the basics of GeoBench, you can:
 
 1. Create your own [benchmark scenarios](creating-scenarios.md)
 2. Explore different [execution types](execution-types.md)
-3. Learn about advanced [configuration options](configuration-options.md)
-4. Understand how to [analyze results](analyzing-results.md)
+3. Try [Jupyter notebook benchmarking](jupyter-benchmarking.md) for interactive workflows
+4. Learn about advanced [configuration options](configuration-options.md)
+5. Understand how to [analyze results](analyzing-results.md)
