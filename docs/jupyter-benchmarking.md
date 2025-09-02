@@ -16,15 +16,15 @@ Jupyter notebook benchmarking in GeoBench provides:
 
 There are three ways to use Jupyter benchmarking functionality in GeoBench:
 
-### 1. Using the JupyterBenchmark Class
+### 1. Using the Geobench Class
 
-The `JupyterBenchmark` class provides full control over the benchmarking process:
+The `Geobench` class provides full control over the benchmarking process:
 
 ```python
-from geobench.jupyter import JupyterBenchmark
+from geobench import Geobench
 
 # Create a benchmark instance
-bench = JupyterBenchmark(
+bench = Geobench(
     name="my-benchmark",
     outdir="results",
     run_monitor=2.0,  # Monitor every 2 seconds
@@ -38,7 +38,7 @@ bench.start("my-function")
 result = my_function()
 
 # Finish benchmarking
-bench.finish(True)  # Pass True for success, False for failure
+bench.stop(True)  # Pass True for success, False for failure
 
 # Generate HTML report
 bench.generate_report()
@@ -54,7 +54,7 @@ bench.generate_report()
 #### Methods
 
 - `start(operation_name)`: Start monitoring and timing for an operation
-- `finish(success)`: Stop monitoring and record the result
+- `stop(success)`: Stop monitoring and record the result
 - `generate_report()`: Generate an HTML report with results
 
 ### 2. Using the Benchmark Decorator
@@ -62,9 +62,9 @@ bench.generate_report()
 The decorator provides a simpler way to benchmark individual functions:
 
 ```python
-from geobench.jupyter import benchmark
+from geobench import geobench
 
-@benchmark(name="my-function-benchmark", outdir="results", clean=True)
+@geobench(name="my-function-benchmark", outdir="results", clean=True)
 def my_function():
     # Your code here
     import time
@@ -90,18 +90,18 @@ The decorator automatically:
 
 ### 3. Using Context Manager (Alternative Pattern)
 
-You can also use the JupyterBenchmark class as a context manager:
+You can also use the Geobench class as a context manager:
 
 ```python
-from geobench.jupyter import JupyterBenchmark
+from geobench import Geobench
 
-with JupyterBenchmark(name="context-benchmark", outdir="results") as bench:
+with Geobench(name="context-benchmark", outdir="results") as bench:
     bench.start("processing")
     
     # Your code here
     result = process_data()
     
-    bench.finish(True)
+    bench.stop(True)
 ```
 
 ## Example: Benchmarking Geospatial Operations
@@ -113,7 +113,7 @@ Here's a complete example of benchmarking a geospatial operation in a Jupyter no
 import geopandas as gpd
 import pandas as pd
 from shapely.geometry import Point
-from geobench.jupyter import benchmark
+from geobench import geobench
 
 # Cell 2: Create sample data
 def create_sample_data(n_points=10000):
@@ -132,7 +132,7 @@ def create_sample_data(n_points=10000):
     return gdf
 
 # Cell 3: Benchmark buffer operation
-@benchmark(name="buffer-operation", outdir="benchmark_results")
+@geobench(name="buffer-operation", outdir="benchmark_results")
 def benchmark_buffer_operation():
     # Create sample data
     gdf = create_sample_data(50000)
@@ -152,7 +152,7 @@ print(f"Processed {result} features")
 You can manually implement parameter sweeping in Jupyter notebooks:
 
 ```python
-from geobench.jupyter import JupyterBenchmark
+from geobench import Geobench
 import time
 
 # Parameters to test
@@ -164,7 +164,7 @@ for n_points in point_counts:
     for distance in buffer_distances:
         bench_name = f"buffer-{n_points}pts-{distance}m"
         
-        bench = JupyterBenchmark(
+        bench = Geobench(
             name=bench_name,
             outdir="parameter_sweep_results",
             clean=True
@@ -176,7 +176,7 @@ for n_points in point_counts:
         gdf = create_sample_data(n_points)
         buffered = gdf.to_crs("EPSG:3857").buffer(distance)
         
-        bench.finish(True)
+        bench.stop(True)
         bench.generate_report()
         
         print(f"Completed: {n_points} points, {distance}m buffer")
@@ -213,7 +213,7 @@ bench_name = f"ndvi-calculation-{tile_size}x{tile_size}-{band_count}bands"
 Set `clean=True` to ensure fresh results:
 
 ```python
-@benchmark(name="my-test", clean=True)
+@geobench(name="my-test", clean=True)
 def my_function():
     # ...
 ```
@@ -222,15 +222,15 @@ def my_function():
 When using the class directly, handle potential errors:
 
 ```python
-bench = JupyterBenchmark(name="error-handling-example")
+bench = Geobench(name="error-handling-example")
 bench.start("risky-operation")
 
 try:
     result = risky_operation()
-    bench.finish(True)
+    bench.stop(True)
 except Exception as e:
     print(f"Error: {e}")
-    bench.finish(False)
+    bench.stop(False)
 ```
 
 ### 4. Monitor Resource Usage
@@ -238,10 +238,10 @@ Use appropriate monitoring intervals based on operation duration:
 
 ```python
 # For long operations (>1 minute)
-bench = JupyterBenchmark(name="long-op", run_monitor=5.0)
+bench = Geobench(name="long-op", run_monitor=5.0)
 
 # For short operations (<30 seconds)
-bench = JupyterBenchmark(name="short-op", run_monitor=0.5)
+bench = Geobench(name="short-op", run_monitor=0.5)
 ```
 
 ## Integration with Existing Workflows

@@ -100,9 +100,9 @@ In addition to YAML-based scenarios, GeoBench supports interactive benchmarking 
 ### Quick Example
 
 ```python
-from geobench.jupyter import benchmark
+from geobench import geobench
 
-@benchmark(name="my-analysis", outdir="results")
+@geobench(name="my-analysis", outdir="results")
 def analyze_data():
     # Your geospatial analysis code here
     import time
